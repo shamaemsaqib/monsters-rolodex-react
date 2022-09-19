@@ -2,9 +2,9 @@ import React from "react";
 import Card from "../card/card.component";
 import "./card-list.styles.css";
 
-function CardList({ monsters }) {
+const CardList = ({ monsters }) => {
   return (
-    <>
+    <div>
       {monsters.length === 0 && (
         <h1 className="no-monster">Sorry! no monster matched of your search</h1>
       )}
@@ -15,8 +15,8 @@ function CardList({ monsters }) {
           ))}
         </div>
       )}
-    </>
+    </div>
   );
-}
+};
 
 export default CardList;
