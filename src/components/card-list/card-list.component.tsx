@@ -1,8 +1,15 @@
 import React from "react";
-import Card from "../card/card.component";
+
 import "./card-list.styles.css";
 
-const CardList = ({ monsters }) => {
+import Card from "../card/card.component";
+import { Monsters } from "../../App";
+
+type CardListProps = {
+  monsters: Monsters[];
+};
+
+const CardList = ({ monsters }: CardListProps) => {
   return (
     <div>
       {monsters.length === 0 && (

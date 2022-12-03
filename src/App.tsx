@@ -1,19 +1,32 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect, ChangeEvent } from "react";
 
 import "./App.css";
 
 import CardList from "./components/card-list/card-list.component";
 import Search from "./components/search/search.component";
 
+import { getData } from "./utils/data.utils";
+
+export type Monsters = {
+  id: string;
+  name: string;
+  email: string;
+};
+
 const App = () => {
-  const [monsters, setMonsters] = useState([]);
+  const [monsters, setMonsters] = useState<Monsters[]>([]);
   const [searchField, setSearchField] = useState("");
   const [filteredMonsters, setFilteredMonsters] = useState(monsters);
 
   useEffect(() => {
-    fetch("https://jsonplaceholder.typicode.com/users")
-      .then((res) => res.json())
-      .then((users) => setMonsters(users));
+    const fetchMonsters = async () => {
+      const monsters = await getData<Monsters[]>(
+        "https://jsonplaceholder.typicode.com/users"
+      );
+      setMonsters(monsters);
+    };
+
+    fetchMonsters();
   }, []);
 
   useEffect(() => {
@@ -24,8 +37,8 @@ const App = () => {
     setFilteredMonsters(newFilteredMonsters);
   }, [monsters, searchField]);
 
-  const handleChange = (e) => {
-    setSearchField(e.target.value);
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setSearchField(event.target.value);
   };
 
   return (
